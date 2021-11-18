@@ -44,7 +44,6 @@
     function handleEvent() {
         let timestampNow = Date.now()
         if (timestampNow - timestampCheckpoint > 1000 * 115) { // heartbeat every 115 seconds
-            console.log("POSTED")
             // refreshes the cooldown
             let timestampCheckpoint = timestampNow;
 
