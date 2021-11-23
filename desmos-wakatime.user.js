@@ -16,7 +16,7 @@
 
 
     // POST to WakaTime via REST request
-    function wakaTime(key, graphName, graphURL, lineCount, lineSelected) {
+    function wakaTime(key, graphName, graphURL, lineCount) {
         fetch("https://proxy.jackz.me/wakatime.com/api/v1/users/current/heartbeats", {
             method: "POST",
             headers: {
@@ -33,7 +33,7 @@
                 "language": "Desmos",
                 "dependencies": [],
                 "lines": lineCount,
-                "lineno": lineSelected,
+                "lineno": null,
                 "cursorpos": null,
                 "is_write": null
             })
@@ -41,35 +41,29 @@
     }
 
 
+    let timestampCheckpoint = Date.now();
     function handleEvent() {
         let timestampNow = Date.now()
         if (timestampNow - timestampCheckpoint > 1000 * 115) { // heartbeat every 115 seconds
+            console.log("POSTED")
             // refreshes the cooldown
-            let timestampCheckpoint = timestampNow;
+            timestampCheckpoint = timestampNow;
 
             // gets the current graph name
             let graphName = document.querySelector(".dcg-variable-title").innerText;
             // gets the current graph URL
             let graphURL = window.location.href;
-            // gets the current line selected
-            if (Calc.selectedExpressionId === undefined) {
-                let lineSelected = null;
-            } else {
-                let lineSelected = Calc.getExpressions().findIndex(item => item.id == Calc.selectedExpressionId) + 1;
-            }
             // gets the line count
             let lineCount = Calc.getExpressions().length;
 
             // POST to WakaTime via REST request
-            wakaTime(secretKey, graphName, graphURL, lineCount, lineSelected)
+            wakaTime(secretKey, graphName, graphURL, lineCount)
         }
     }
 
 
     // Add event listener on keypress
-    let timestampCheckpoint = Date.now();
-    document.addEventListener('keydown', handleEvent, false);
-    document.addEventListener('mouse', handleEvent, false);
+    document.addEventListener('keypress', handleEvent, false);
     
     console.log("desmos-wakatime loaded properly ✔️\n _   _ _____ ___  _   _ _____ _   _ ___________  ___  \n| | | |  ___/ _ \\| | | |  ___| \\ | |_   _| ___ \\/ _ \\ \n| |_| | |__/ /_\\ | | | | |__ |  \\| | | | | |_/ / /_\\ \\\n|  _  |  __|  _  | | | |  __|| . ` | | | |    /|  _  |\n| | | | |__| | | \\ \\_/ | |___| |\\  |_| |_| |\\ \\| | | |\n\\_| |_\\____\\_| |_/\\___/\\____/\\_| \\_/\\___/\\_| \\_\\_| |_/");
 })();
