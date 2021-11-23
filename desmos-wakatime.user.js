@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WakaTime Support
 // @namespace    ezropp.Desmos
-// @version      1.0
+// @version      1.1
 // @description  WakaTime Support for the Desmos Graphing Calculator
 // @author       Heavenira (Ezra Oppenheimer)
 // @website      https://wakatime.com/
