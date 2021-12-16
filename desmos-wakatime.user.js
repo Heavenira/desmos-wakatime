@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WakaTime Support
 // @namespace    ezropp.Desmos
-// @version      1.2
+// @version      1.3
 // @description  WakaTime Support for the Desmos Graphing Calculator
 // @author       Heavenira (Ezra Oppenheimer)
 // @website      https://wakatime.com/
@@ -45,16 +45,8 @@
     function handleEvent() {
         let timestampNow = Date.now()
         if (timestampNow - timestampCheckpoint > 1000 * 115) { // heartbeat every 115 seconds
-            console.log("POSTED")
             // refreshes the cooldown
             timestampCheckpoint = timestampNow;
-
-            // gets the current graph name
-            let graphName = document.querySelector(".dcg-variable-title").innerText;
-            // gets the current graph URL
-            let graphURL = window.location.href;
-            // gets the line count
-            let lineCount = Calc.getExpressions().length;
 
             // POST to WakaTime via REST request
             wakaTime(secretKey)
