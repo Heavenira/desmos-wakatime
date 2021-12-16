@@ -32,7 +32,7 @@
                 "branch": null,
                 "language": "Desmos",
                 "dependencies": [],
-                "lines": lineCount,
+                "lines": null,
                 "lineno": null,
                 "cursorpos": null,
                 "is_write": null
