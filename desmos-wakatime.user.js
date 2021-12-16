@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WakaTime Support
 // @namespace    ezropp.Desmos
-// @version      1.1
+// @version      1.2
 // @description  WakaTime Support for the Desmos Graphing Calculator
 // @author       Heavenira (Ezra Oppenheimer)
 // @website      https://wakatime.com/
@@ -16,7 +16,7 @@
 
 
     // POST to WakaTime via REST request
-    function wakaTime(key, graphName, graphURL, lineCount) {
+    function wakaTime(key) {
         fetch("https://proxy.jackz.me/wakatime.com/api/v1/users/current/heartbeats", {
             method: "POST",
             headers: {
@@ -24,12 +24,12 @@
                 "Content-Type": "applications/json"
             },
             body: JSON.stringify({
-                "entity": graphName,
+                "entity": "Desmos Graphing Calculator",
                 "type": "app",
                 "category": "coding",
                 "time": Date.now() * 0.001,
                 "project": "Desmos Projects",
-                "branch": graphURL,
+                "branch": null,
                 "language": "Desmos",
                 "dependencies": [],
                 "lines": lineCount,
@@ -57,13 +57,13 @@
             let lineCount = Calc.getExpressions().length;
 
             // POST to WakaTime via REST request
-            wakaTime(secretKey, graphName, graphURL, lineCount)
+            wakaTime(secretKey)
         }
     }
 
 
     // Add event listener on keypress
-    document.addEventListener('keypress', handleEvent, false);
+    document.addEventListener('keydown', handleEvent, false);
     
     console.log("desmos-wakatime loaded properly ✔️\n _   _ _____ ___  _   _ _____ _   _ ___________  ___  \n| | | |  ___/ _ \\| | | |  ___| \\ | |_   _| ___ \\/ _ \\ \n| |_| | |__/ /_\\ | | | | |__ |  \\| | | | | |_/ / /_\\ \\\n|  _  |  __|  _  | | | |  __|| . ` | | | |    /|  _  |\n| | | | |__| | | \\ \\_/ | |___| |\\  |_| |_| |\\ \\| | | |\n\\_| |_\\____\\_| |_/\\___/\\____/\\_| \\_/\\___/\\_| \\_\\_| |_/");
 })();
