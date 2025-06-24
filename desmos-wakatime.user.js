@@ -67,7 +67,7 @@
 
         if (timestampNow - timestampCheckpoint > 1000 * 120) { // heartbeat every 120 seconds
 
-            let graphName = document.querySelector(".dcg-variable-title").innerText; // gets the current graph name
+            let graphName = document.getElementById('dcg-graph-title-text').innerText; // gets the current graph name
 
             let graphURL = window.location.href; // gets the current graph URL
 
